@@ -4,6 +4,7 @@ public class Jogador {
 	public static final int TAMANHO_MAO = 3;
 	private Carta[] mao;
 	private int pontuacao;
+	private int pontuacaoRodada;
 	private int indiceMao;
 	
 	public Jogador() {
@@ -12,6 +13,18 @@ public class Jogador {
 		indiceMao = 0;
 	}
 
+	public int getPontuacaoRodada() {
+		return pontuacaoRodada;
+	}
+	
+	public void incPontuacaoRodada() {
+		pontuacaoRodada++;
+	}
+	
+	public void zeraPontuacaoRodada() {
+		pontuacaoRodada = 0;
+	}
+	
 	public int getPontuacao() {
 		return pontuacao;
 	}
@@ -38,6 +51,21 @@ public class Jogador {
 		Carta descarte = mao[indice];
 		mao[indice] = null;
 		return descarte;
+	}
+	
+	private int obtemCartaMaior() {
+		int maior = -1;
+		for (int i = 0; i < mao.length; i++) {
+			Carta c = mao[i];
+			if (c != null && c.getValor() > maior) {
+				maior = c.getValor();
+			}
+		}
+		return maior;
+	}
+	
+	public Carta jogaCarta() {
+		return getCarta(obtemCartaMaior());
 	}
 	
 	@Override
